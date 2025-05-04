@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History {{ company.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .company-info {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .company-info p {
+            margin: 5px 0;
+        }
+        
+        .transaction-summary {
+            background-color: #e8f4ff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .transaction-summary p {
+            margin: 5px 0;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .amount {
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .page-info {
+            margin: 0 15px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+        
+        .btn-pagination {
+            background-color: #2196F3;
+        }
+        
+        .btn-pagination:hover {
+            background-color: #0b7dda;
+        }
+        
+        .btn-back {
+            background-color: #555;
+            margin-top: 20px;
+        }
+        
+        .btn-back:hover {
+            background-color: #333;
+        }
+        
+        .no-transactions {
+            text-align: center;
+            color: #777;
+            padding: 40px 0;
+            font-size: 16px;
+        }
+        
+        .actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Transaction History: {{ company.name }}</h1>
+        
+        <div class="company-info">
+            <p><strong>ID:</strong> {{ company.id }}</p>
+            <p><strong>Name:</strong> {{ company.name }}</p>
+            <p><strong>Account Number:</strong> {{ company.account_number }}</p>
+            <p><strong>Address:</strong> {{ company.address or "Not specified" }}</p>
+        </div>
+
+        <div class="transactions-box">
+            {% if transactions %}
+            <div class="transaction-summary">
+                <p><strong>Total Transactions:</strong> {{ transactions|length }}</p>
+                <p><strong>Total Amount:</strong> {{ total_amount }} UZS</p>
+            </div>
+            
+            <table class="transactions-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date and Time</th>
+                        <th>Card</th>
+                        <th>User</th>
+                        <th>Amount (UZS)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.id }}</td>
+                        <td>{{ transaction.timestamp }}</td>
+                        <td>{{ transaction.card_number }}</td>
+                        <td>{{ transaction.user_name }}</td>
+                        <td class="amount">{{ transaction.amount }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                {% if page > 1 %}
+                <a href="{{ url_for('company_transactions', company_id=company.id, page=page-1) }}" class="btn btn-pagination">&laquo; Previous</a>
+                {% endif %}
+                
+                <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
+                
+                {% if page < total_pages %}
+                <a href="{{ url_for('company_transactions', company_id=company.id, page=page+1) }}" class="btn btn-pagination">Next &raquo;</a>
+                {% endif %}
+            </div>
+            {% else %}
+            <p class="no-transactions">This company has no transactions yet</p>
+            {% endif %}
+        </div>
+        
+        <div class="actions">
+            <a href="javascript:history.back()" class="btn btn-back">Return to Companies List</a>
+        </div>
+    </div>
+</body>
+</html>

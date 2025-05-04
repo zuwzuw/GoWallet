@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Company</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .navbar-container {
+            background: white;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            color: rgb(0, 0, 0);
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin: 0 15px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+        }
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+        }
+        .content-box {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 80px;
+            width: 300px;
+        }
+        .content-box input, .content-box textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .content-box button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .content-box button:hover {
+            background-color: #555;
+        }
+        .message {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success {
+            display: block;
+            color: green;
+            border: 2px solid green;
+            background-color: #d4edda;
+        }
+        .error {
+            display: block;
+            color: red;
+            border: 2px solid red;
+            background-color: #f8d7da;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #333;
+                text-align: center;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .burger {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar-container">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/static/logo.jpg" alt="Logo" style="height: 50px;">
+            </div>
+            <ul class="nav-links">
+                <li><a href="/home">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="burger" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+    </div>
+    <form action="{{ url_for('edit_company', company_id=company.id) }}" method="post">
+        <div class="content-box">
+            <h2>Edit Company</h2>
+            <input type="text" name="name" placeholder="Company Name" value="{{ company.name }}" required>
+            <input type="text" name="address" placeholder="Address" value="{{ company.address or '' }}">
+            <input type="text" name="account_number" placeholder="Account Number" value="{{ company.account_number }}" required>
+            <textarea name="comments" placeholder="Comments" rows="4">{{ company.comments or '' }}</textarea>
+            <button type="submit">Save</button>
+            <a href="{{ url_for('home') }}" style="display: block; margin-top: 10px; text-decoration: none; color: red;">Cancel</a>
+        </div>
+    </form>    
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

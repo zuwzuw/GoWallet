@@ -1,0 +1,122 @@
+# Python specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+.coverage
+htmlcov/
+.tox/
+.coverage.*
+.cache/
+nosetests.xml
+coverage.xml
+
+# Flask / Django
+.env
+.flaskenv
+instance/
+.webassets-cache
+migrations/
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# PostgreSQL data
+*.dump
+*.sql
+
+# Database
+*.sqlite3
+*.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+*.sublime-workspace
+*.iml
+*.iws
+.project
+.pydevproject
+.settings/
+.classpath
+
+# Flutter & Dart specific
+**/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+*.lock
+!pubspec.lock
+generated_plugin_registrant.dart
+GeneratedPluginRegistrant.java
+GeneratedPluginRegistrant.h
+GeneratedPluginRegistrant.m
+GeneratedPluginRegistrant.swift
+/Flutter/ephemeral/
+.gradle/
+local.properties
+keystore.properties
+**/doc/api/
+.last_build_id
+.fvm/
+.ios/
+.android/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/gradle/wrapper/gradle-wrapper.jar
+**/ios/.generated/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Log files
+*.log
+log/
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Upload directories
+static/uploads/*
+!static/uploads/.gitkeep
+static/qrcodes/*
+!static/qrcodes/.gitkeep
+
+# Other
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+._*
+Thumbs.db
+node_modules/
+.sass-cache/
